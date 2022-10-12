@@ -10,8 +10,8 @@ sudo iptables -t filter -P FORWARD DROP
 sudo iptables -t filter -P OUTPUT DROP
 
 # SSH
-sudo iptables -t filter -A INPUT -p tcp --dport 22 -j ACCEPT
-sudo iptables -t filter -A OUTPUT -p tcp --dport 22 -j ACCEPT
+sudo iptables -t filter -A INPUT -p tcp --dport 22138 -j ACCEPT
+sudo iptables -t filter -A OUTPUT -p tcp --dport 22138 -j ACCEPT
 
 # DNS
 sudo iptables -t filter -A OUTPUT -p tcp --dport 53 -j ACCEPT
