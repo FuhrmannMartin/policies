@@ -12,6 +12,7 @@ sudo iptables -t filter -P OUTPUT DROP
 # Authorize already established connexions
 sudo iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 sudo iptables -A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
 sudo iptables -t filter -A INPUT -i lo -j ACCEPT
 sudo iptables -t filter -A OUTPUT -o lo -j ACCEPT
 
@@ -47,6 +48,9 @@ sudo iptables -t filter -A OUTPUT -p tcp --dport 25 -j ACCEPT
 sudo iptables -t filter -A INPUT -p tcp --dport 143 -j ACCEPT
 sudo iptables -t filter -A OUTPUT -p tcp --dport 143 -j ACCEPT
 
+sudo iptables -A FORWARD -i ens18 -o ens19 -p tcp --syn --dport 80 -m conntrack --ctstate NEW -j ACCEPT
+sudo iptables -A FORWARD -i ens18 -o ens19 -p tcp --syn --dport 25 -m conntrack --ctstate NEW -j ACCEPT
+sudo iptables -A FORWARD -i ens18 -o ens19 -p tcp --syn --dport 143 -m conntrack --ctstate NEW -j ACCEPT
 sudo iptables -t nat -A PREROUTING -i ens18 -p tcp - -dport 80 -j DNAT - -to-destination 192.168.5.10
 sudo iptables -t nat -A PREROUTING -i ens18 -p tcp - -dport 25 -j DNAT - -to-destination 192.168.5.30
 sudo iptables -t nat -A PREROUTING -i ens18 -p tcp - -dport 143 -j DNAT - -to-destination 192.168.5.30
