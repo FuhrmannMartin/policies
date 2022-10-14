@@ -27,10 +27,13 @@ sudo iptables -t filter -A OUTPUT -p tcp --dport 53 -j ACCEPT
 sudo iptables -t filter -A OUTPUT -p udp --dport 53 -j ACCEPT
 sudo iptables -t filter -A INPUT -p tcp --dport 53 -j ACCEPT
 sudo iptables -t filter -A INPUT -p udp --dport 53 -j ACCEPT
+sudo iptables -t filter -A FORWARD -p tcp --dport 53 -j ACCEPT
+sudo iptables -t filter -A FORWARD -p udp --dport 53 -j ACCEPT
 
 # HTTP
 sudo iptables -t filter -A OUTPUT -p tcp --dport 80 -j ACCEPT
 sudo iptables -t filter -A INPUT -p tcp --dport 80 -j ACCEPT
+sudo iptables -t filter -A FORWARD -p tcp --dport 80 -j ACCEPT
 
 #HTTPS
 sudo iptables -t filter -A OUTPUT -p tcp --dport 443 -j ACCEPT
@@ -43,10 +46,12 @@ sudo iptables -t filter -A INPUT -p tcp --dport 20:21 -j ACCEPT
 # Mail SMTP
 sudo iptables -t filter -A INPUT -p tcp --dport 25 -j ACCEPT
 sudo iptables -t filter -A OUTPUT -p tcp --dport 25 -j ACCEPT
+sudo iptables -t filter -A FORWARD -p tcp --dport 25 -j ACCEPT
 
 # Mail IMAP
 sudo iptables -t filter -A INPUT -p tcp --dport 143 -j ACCEPT
 sudo iptables -t filter -A OUTPUT -p tcp --dport 143 -j ACCEPT
+sudo iptables -t filter -A FORWARD -p tcp --dport 143 -j ACCEPT
 
 sudo iptables -A FORWARD -i ens18 -o ens19 -p tcp --syn --dport 80 -m conntrack --ctstate NEW -j ACCEPT
 sudo iptables -A FORWARD -i ens18 -o ens19 -p tcp --syn --dport 25 -m conntrack --ctstate NEW -j ACCEPT
