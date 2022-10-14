@@ -47,3 +47,8 @@ sudo iptables -t filter -A OUTPUT -p tcp --dport 25 -j ACCEPT
 sudo iptables -t filter -A INPUT -p tcp --dport 143 -j ACCEPT
 sudo iptables -t filter -A OUTPUT -p tcp --dport 143 -j ACCEPT
 
+sudo iptables -t nat -A PREROUTING -i ens18 -p tcp - -dport 80 -j DNAT - -to-destination 192.168.5.10
+sudo iptables -t nat -A PREROUTING -i ens18 -p tcp - -dport 25 -j DNAT - -to-destination 192.168.5.30
+sudo iptables -t nat -A PREROUTING -i ens18 -p tcp - -dport 143 -j DNAT - -to-destination 192.168.5.30
+
+
