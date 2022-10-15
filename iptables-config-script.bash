@@ -16,6 +16,9 @@ sudo iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
 sudo iptables -t filter -A INPUT -i lo -j ACCEPT
 sudo iptables -t filter -A OUTPUT -o lo -j ACCEPT
 
+# UDP datagram port 5000
+sudo iptables -t filter -A OUTPUT -p udp --dport 5000 -j ACCEPT
+
 # SSH
 sudo iptables -t filter -A INPUT -p tcp --dport 22138 -j ACCEPT
 sudo iptables -t filter -A OUTPUT -p tcp --dport 22138 -j ACCEPT
